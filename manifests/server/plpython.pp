@@ -7,13 +7,13 @@ class postgresql::server::plpython(
   package { 'postgresql-plpython':
     ensure => $package_ensure,
     name   => $package_name,
-    tag    => 'postgresql',
+    tag    => 'puppetlabs-postgresql',
   }
 
-  anchor { 'postgresql::server::plpython::start': }->
-  Class['postgresql::server::install']->
-  Package['postgresql-plpython']->
-  Class['postgresql::server::service']->
-  anchor { 'postgresql::server::plpython::end': }
+  anchor { 'postgresql::server::plpython::start': }
+  -> Class['postgresql::server::install']
+  -> Package['postgresql-plpython']
+  -> Class['postgresql::server::service']
+  -> anchor { 'postgresql::server::plpython::end': }
 
 }
